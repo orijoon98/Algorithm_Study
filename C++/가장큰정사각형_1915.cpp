@@ -16,6 +16,10 @@ void Input() {
 }
 
 void Sol() {
+	for (int i = 0; i < n; i++) {
+		if (board[i][0] == 1) ans = 1;
+		if (board[0][i] == 1) ans = 1;
+	}
 	for (int i = 1; i < n; i++) {
 		for (int j = 1; j < m; j++) {
 			if (board[i][j] == 0) continue;
@@ -35,6 +39,10 @@ int main() {
 			for (int j = 0; j < m; j++) {
 				if (board[i][j] == 1) {
 					cout << 1 << '\n';
+					return 0;
+				}
+				if (i == n - 1 && j == m - 1) {
+					cout << 0 << '\n';
 					return 0;
 				}
 			}

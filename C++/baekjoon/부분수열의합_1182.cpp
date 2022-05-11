@@ -1,25 +1,51 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#define endl '\n'
+#define MAX INT_MAX
+
 using namespace std;
-#define FAST ios::sync_with_stdio(0),cin.tie(0),cout.tie(0)
 
-int n, s, cnt;
-int arr[20];
+int N, S, ans = 0;
+vector<int> arr;
 
-
-void func(int cur, int tot){
-    if(cur == n){
-        if(tot == s) cnt++;
-        return;
+void Input() {
+    cin>>N>>S;
+    for (int i = 0; i < N; i++) {
+        int n;
+        cin>>n;
+        arr.push_back(n);
     }
-    func(cur+1, tot);
-    func(cur+1, tot+arr[cur]);
+}
+
+void Solution() {
+    for (int r = 1; r <= N; r++) {
+        vector<bool> temp(N, false);
+        for (int i = 0; i < r; i++) {
+            temp[i] = true;
+        }
+        do { 
+            int cur = 0;
+            for (int i = 0; i < N; i++) {
+                if (temp[i]) {
+                    cur += arr[i];
+                }
+            }
+            if (cur == S) ans++;
+        } while (prev_permutation(temp.begin(), temp.end()));
+    }
+    cout<<ans<<endl;
+}
+
+void Solve() {
+    Input();
+    Solution();
 }
 
 int main() {
-    FAST;
-    cin>>n>>s;
-    for(int i=0;i<n;i++) cin>>arr[i];
-    func(0, 0);
-    if(s == 0) cnt--;
-    cout<<cnt;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    Solve();
+
+    return 0;
 }

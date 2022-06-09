@@ -1,35 +1,54 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
-#define FAST ios::sync_with_stdio(0),cin.tie(0),cout.tie(0)
+#define endl '\n'
 
 int board[101][101];
-int vis[101];
+bool vis[101];
+int n, m, ans = 0;
 
-int main(){
-    FAST;
-    int computer;
-    cin>>computer;
-    int n;
+void Input() {
     cin>>n;
-    while(n--){
+    cin>>m;
+    for (int i = 0; i < m; i++) {
         int a, b;
         cin>>a>>b;
         board[a][b] = 1;
         board[b][a] = 1;
-    }
+    }   
+}
+
+void Solution() {
     queue<int> Q;
     vis[1] = 1;
     Q.push(1);
-    int cnt = -1;
-    while(!Q.empty()){
+    while (!Q.empty()) {
         int cur = Q.front(); Q.pop();
-        cnt++;
-        for(int i=1;i<=computer;i++){
-            if(board[cur][i] != 1) continue;
-            if(vis[i] == 1) continue;
-            vis[i] = 1;
-            Q.push(i);
-        }
+        for (int i = 1; i <= 100; i++) {
+            if (board[cur][i] != 1) continue;
+            int next = i;
+            if (vis[next]) continue;
+            vis[next] = 1;
+            ans++;
+            Q.push(next);
+        }        
     }
-    cout<<cnt<<'\n';
+    cout<<ans<<endl;
 }
+
+void Solve() {
+    Input();
+    Solution();
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    Solve();
+
+    return 0;
+}
+

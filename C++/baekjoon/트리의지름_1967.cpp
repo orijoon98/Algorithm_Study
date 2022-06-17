@@ -1,40 +1,63 @@
 #include <bits/stdc++.h>
-using namespace std;
+#define endl '\n'
 #define MAX 10001
 
-int n, maximum, ans, point;
-vector<pair<int, int>> node[MAX];
+using namespace std;
 
-void DFS(int cur, int maximum, int prev = -1) {
-	if (maximum > ans) {
-		ans = maximum;
-		point = cur;
-	}
-	for (int i = 0; i < node[cur].size(); i++) {
-		int next = node[cur][i].first;
-		int dist = node[cur][i].second;
-		if (next == prev) continue;
-		DFS(next, maximum + dist, cur);
-	}
+int n, ans = 0;
+vector<vector<pair<int,int>>> node;
+bool vis[MAX];
+
+void Initialize() {
+    for (int i = 0; i <= 10000; i++) {
+        vector<pair<int,int>> v;
+        v.push_back({i, 0});
+        node.push_back(v);
+    }
 }
 
 void Input() {
-	cin >> n;
-	n--;
-	int a, b, c;
-	while (n--) {
-		cin >> a >> b >> c;
-		node[a].push_back({ b,c });
-		node[b].push_back({ a, c });
-	}
+    cin>>n;
+    for (int i = 0; i < n - 1; i++) {
+        int parent, child, weight;
+        cin>>parent>>child>>weight;
+        node[parent].push_back({child,weight});
+        node[child].push_back({parent,weight});
+    }
+}
+
+void DFS(int cur, int result) {
+    vis[cur] = true;
+    ans = max(ans, result);
+    for (int i = 0; i < node[cur].size(); i++) {
+        int next = node[cur][i].first;
+        int weight = node[cur][i].second;
+        if (cur == next) continue;
+        if (vis[next]) continue;
+        DFS(next, result + weight);
+    }
+}
+
+void Solution() {
+    for (int i = 1; i <= 10000; i++) {
+        memset(vis, false, sizeof(vis));
+        DFS(i, 0);
+    }
+    cout<<ans<<endl;
+}
+
+void Solve() {
+    Initialize();
+    Input();
+    Solution();
 }
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	Input();
-	DFS(1, 0);
-	ans = 0;
-	DFS(point, 0);
-	cout << ans;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    Solve();
+
+    return 0;
 }

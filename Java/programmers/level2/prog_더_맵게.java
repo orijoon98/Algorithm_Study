@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-class 더_맵게 {
+public class prog_더_맵게 {
     public int solution(int[] scoville, int K) {
         int answer = 0;
         Queue<Integer> priorityQueue = new PriorityQueue<>();

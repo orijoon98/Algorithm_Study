@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-class N으로_표현 {
+public class prog_N으로_표현 {
 
     //순서쌍 a에 b 합치기
     public void unionSet(Set<Integer> union, Set<Integer> a, Set<Integer> b) {

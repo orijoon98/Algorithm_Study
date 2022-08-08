@@ -1,6 +1,6 @@
 package level2;
 
-class 타겟_넘버 {
+public class prog_타겟_넘버 {
 
     int answer = 0;
 
